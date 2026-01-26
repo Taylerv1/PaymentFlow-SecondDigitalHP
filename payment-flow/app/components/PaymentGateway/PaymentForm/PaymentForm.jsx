@@ -333,9 +333,6 @@ const PaymentForm = ({
                 <div style={{ color: '#ef4444', textAlign: 'center', marginTop: 8 }}>Payment failed. Please try again.</div>
             )}
 
-
-
-
         </form>
     );
 };
