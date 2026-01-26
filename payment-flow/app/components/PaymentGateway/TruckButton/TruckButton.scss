@@ -1,4 +1,4 @@
-// TruckButton SCSS Module - Animated Submit Button
+// TruckButton SCSS - Animated Submit Button
 // ═══════════════════════════════════════════════════════════
 
 // Color Variables
@@ -22,7 +22,7 @@ $color-street-fill: #404660;
 $color-box: #DCB97A;
 $color-box-shadow: #B89B66;
 
-.truckButton {
+.truck-button {
     --progress: 0;
     --box-s: 0.5;
     --box-o: 0;
@@ -70,7 +70,7 @@ $color-box-shadow: #B89B66;
         --b: #{$color-street-fill};
     }
 
-    &:hover:not(.animation):not(:disabled) {
+    &:hover:not(.truck-button--animation):not(:disabled) {
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
     }
@@ -81,8 +81,8 @@ $color-box-shadow: #B89B66;
     }
 }
 
-.defaultText,
-.successText {
+.truck-button__default-text,
+.truck-button__success-text {
     display: block;
     font-weight: 600;
     font-size: 16px;
@@ -91,7 +91,7 @@ $color-box-shadow: #B89B66;
     transition: opacity 0.3s;
 }
 
-.successText {
+.truck-button__success-text {
     --o: 0;
     position: absolute;
     top: 16px;
@@ -116,7 +116,7 @@ $color-box-shadow: #B89B66;
 }
 
 // Truck Container
-.truck {
+.truck-button__truck {
     position: absolute;
     width: 72px;
     height: 28px;
@@ -146,7 +146,7 @@ $color-box-shadow: #B89B66;
     }
 }
 
-.wheel {
+.truck-button__wheel {
     position: absolute;
     bottom: -6px;
     left: 6px;
@@ -168,7 +168,7 @@ $color-box-shadow: #B89B66;
     }
 }
 
-.back {
+.truck-button__back {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -202,7 +202,7 @@ $color-box-shadow: #B89B66;
     }
 }
 
-.front {
+.truck-button__front {
     position: absolute;
     left: 47px;
     bottom: -1px;
@@ -233,7 +233,7 @@ $color-box-shadow: #B89B66;
     }
 }
 
-.box {
+.truck-button__box {
     position: absolute;
     width: 13px;
     height: 13px;
@@ -271,20 +271,20 @@ $color-box-shadow: #B89B66;
 }
 
 // Animation States
-.animation {
+.truck-button--animation {
     --rx: -90deg;
     --br: 0;
 
-    .defaultText {
+    .truck-button__default-text {
         --o: 0;
     }
 
-    &.done {
+    &.truck-button--done {
         --rx: 0deg;
         --br: 12px;
         --br-d: 0.2s;
 
-        .successText {
+        .truck-button__success-text {
             --o: 1;
             --offset: 0;
         }
@@ -324,12 +324,12 @@ $color-box-shadow: #B89B66;
     }
 }
 
-.truckMoving {
+.truck-button__truck--moving {
     animation: truckMove 2.4s ease-in-out forwards;
 }
 
 // Hidden state for truck after animation completes
-.truckHidden {
+.truck-button__truck--hidden {
     opacity: 0 !important;
     visibility: hidden;
 }

@@ -1,4 +1,4 @@
-// Payment Form SCSS Module
+// Payment Form SCSS
 // Color variables
 $primary-color: #6366f1;
 $primary-hover: #4f46e5;
@@ -26,7 +26,7 @@ $radius-lg: 16px;
 $transition-fast: 0.15s ease;
 $transition-normal: 0.25s ease;
 
-.paymentForm {
+.payment-form {
     width: 100%;
     max-width: 650px;
     background: $background-color;
@@ -38,7 +38,7 @@ $transition-normal: 0.25s ease;
     gap: 24px;
 }
 
-.formTitle {
+.payment-form__title {
     font-size: 24px;
     font-weight: 700;
     color: $text-primary;
@@ -48,31 +48,56 @@ $transition-normal: 0.25s ease;
     gap: 12px;
 }
 
-.formSubtitle {
+.payment-form__subtitle {
     font-size: 14px;
     color: $text-secondary;
     margin: 0;
 }
 
-.formGroup {
+.payment-form__group {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    animation: slideUp 0.4s ease forwards;
+
+    &:nth-child(1) {
+        animation-delay: 0.05s;
+    }
+
+    &:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    &:nth-child(3) {
+        animation-delay: 0.15s;
+    }
+
+    &:nth-child(4) {
+        animation-delay: 0.2s;
+    }
+
+    &:nth-child(5) {
+        animation-delay: 0.25s;
+    }
+
+    &:nth-child(6) {
+        animation-delay: 0.3s;
+    }
 }
 
-.formRow {
+.payment-form__row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
 }
 
-.formRowThree {
+.payment-form__row--three {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 16px;
 }
 
-.label {
+.payment-form__label {
     font-size: 13px;
     font-weight: 600;
     color: $text-secondary;
@@ -80,12 +105,12 @@ $transition-normal: 0.25s ease;
     letter-spacing: 0.5px;
 }
 
-.inputWrapper {
+.payment-form__input-wrapper {
     position: relative;
     width: 100%;
 }
 
-.input {
+.payment-form__input {
     width: 100%;
     padding: 14px 16px;
     font-size: 16px;
@@ -124,7 +149,7 @@ $transition-normal: 0.25s ease;
     }
 }
 
-.inputIcon {
+.payment-form__input-icon {
     position: absolute;
     right: 16px;
     top: 50%;
@@ -134,12 +159,12 @@ $transition-normal: 0.25s ease;
     transition: color $transition-fast;
 }
 
-.cardNumber {
+.payment-form__input--card-number {
     letter-spacing: 2px;
     font-family: 'Courier New', Courier, monospace;
 }
 
-.select {
+.payment-form__select {
     appearance: none;
     cursor: pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
@@ -149,12 +174,12 @@ $transition-normal: 0.25s ease;
     padding-right: 44px;
 }
 
-.cvvInput {
+.payment-form__input--cvv {
     letter-spacing: 4px;
     text-align: center;
 }
 
-.cardPreview {
+.payment-form__card-preview {
     margin-top: 24px;
     margin-bottom: 24px;
     width: 100%;
@@ -164,7 +189,7 @@ $transition-normal: 0.25s ease;
     gap: 12px;
 }
 
-.previewLabel {
+.payment-form__preview-label {
     font-size: 14px;
     font-weight: 600;
     color: $text-secondary;
@@ -173,7 +198,7 @@ $transition-normal: 0.25s ease;
     align-self: flex-start;
 }
 
-.submitButton {
+.payment-form__submit-button {
     width: 100%;
     padding: 16px 24px;
     margin-top: 8px;
@@ -225,7 +250,7 @@ $transition-normal: 0.25s ease;
     }
 }
 
-.securityNote {
+.payment-form__security-note {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -240,7 +265,7 @@ $transition-normal: 0.25s ease;
     }
 }
 
-.cardBrands {
+.payment-form__card-brands {
     display: flex;
     justify-content: center;
     gap: 12px;
@@ -253,7 +278,7 @@ $transition-normal: 0.25s ease;
     }
 }
 
-.brandIcon {
+.payment-form__brand-icon {
     width: 40px;
     height: 26px;
     background: $surface-color;
@@ -287,28 +312,18 @@ $transition-normal: 0.25s ease;
     }
 }
 
-.formGroup {
-    animation: slideUp 0.4s ease forwards;
-
-    @for $i from 1 through 6 {
-        &:nth-child(#{$i}) {
-            animation-delay: #{$i * 0.05}s;
-        }
-    }
-}
-
 // Responsive adjustments
 @media (max-width: 480px) {
-    .paymentForm {
+    .payment-form {
         padding: 24px 20px;
     }
 
-    .formRow,
-    .formRowThree {
+    .payment-form__row,
+    .payment-form__row--three {
         grid-template-columns: 1fr;
     }
 
-    .input {
+    .payment-form__input {
         padding: 12px 14px;
         font-size: 14px;
     }

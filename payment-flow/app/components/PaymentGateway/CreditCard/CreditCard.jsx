@@ -1,18 +1,11 @@
 'use client';
 
 import React from 'react';
-import styles from './CreditCard.module.scss';
+import './CreditCard.scss';
 
 /**
  * CreditCard Component
  * Visual representation of a credit card that updates based on user input
- * 
- * @param {Object} props
- * @param {string} props.cardNumber - The card number entered by user
- * @param {string} props.holderName - The cardholder's name
- * @param {string} props.expiryMonth - Expiry month (MM)
- * @param {string} props.expiryYear - Expiry year (YY)
- * @param {string} props.cvv - Card CVV (not displayed for security)
  */
 const CreditCard = ({
     cardNumber = '',
@@ -21,57 +14,41 @@ const CreditCard = ({
     expiryYear = ''
 }) => {
     /**
-     * Determine card brand based on card number prefix using official IIN ranges
-     * @returns {Object} Card brand info with name and style class
-     * 
-     * Card Brand Ranges:
-     * - Visa: Starts with 4
-     * - Mastercard: 51-55 or 2221-2720
-     * - Amex: 34 or 37
-     * - Discover: 6011, 65, or 644-649
+     * Determine card brand based on card number prefix
      */
     const getCardBrand = () => {
         const cleanNumber = cardNumber.replace(/\s/g, '');
 
-        // Visa - starts with 4
         if (/^4/.test(cleanNumber)) {
-            return { name: 'VISA', className: styles.visa };
+            return { name: 'VISA', className: 'credit-card--visa' };
         }
 
-        // Mastercard - 51-55 range OR 2221-2720 range (new BIN range)
         if (/^5[1-5]/.test(cleanNumber) || /^2[2-7]/.test(cleanNumber)) {
-            return { name: 'MASTERCARD', className: styles.mastercard };
+            return { name: 'MASTERCARD', className: 'credit-card--mastercard' };
         }
 
-        // American Express - 34 or 37
         if (/^3[47]/.test(cleanNumber)) {
-            return { name: 'AMEX', className: styles.amex };
+            return { name: 'AMEX', className: 'credit-card--amex' };
         }
 
-        // Discover - 6011, 65, or 644-649
         if (/^6(?:011|5|4[4-9])/.test(cleanNumber)) {
-            return { name: 'DISCOVER', className: styles.discover };
+            return { name: 'DISCOVER', className: 'credit-card--discover' };
         }
 
-        return { name: '', className: styles.default };
+        return { name: '', className: 'credit-card--default' };
     };
 
     /**
      * Format card number with spaces for readability
-     * Shows masked format when empty
-     * @returns {string} Formatted card number
      */
     const formatCardNumber = () => {
         const cleanNumber = cardNumber.replace(/\s/g, '');
         const paddedNumber = cleanNumber.padEnd(16, '•');
-
-        // Format as groups of 4
         return paddedNumber.match(/.{1,4}/g)?.join(' ') || '•••• •••• •••• ••••';
     };
 
     /**
      * Format expiry date display
-     * @returns {string} Formatted expiry date MM/YY
      */
     const formatExpiry = () => {
         const month = expiryMonth || 'MM';
@@ -82,36 +59,36 @@ const CreditCard = ({
     const cardBrand = getCardBrand();
 
     return (
-        <div className={`${styles.creditCard} ${cardBrand.className}`}>
+        <div className={`credit-card ${cardBrand.className}`}>
             {/* Contactless payment indicator */}
-            <div className={styles.contactless} aria-hidden="true" />
+            <div className="credit-card__contactless" aria-hidden="true" />
 
             {/* Top section: Chip and Brand */}
-            <div className={styles.cardTop}>
-                <div className={styles.chip} aria-hidden="true" />
-                <div className={styles.cardBrand} aria-label={`Card type: ${cardBrand.name || 'Unknown'}`}>
+            <div className="credit-card__top">
+                <div className="credit-card__chip" aria-hidden="true" />
+                <div className="credit-card__brand" aria-label={`Card type: ${cardBrand.name || 'Unknown'}`}>
                     {cardBrand.name}
                 </div>
             </div>
 
             {/* Middle section: Card Number */}
-            <div className={styles.cardMiddle}>
-                <div className={styles.cardNumber} aria-label="Card number">
+            <div className="credit-card__middle">
+                <div className="credit-card__number" aria-label="Card number">
                     {formatCardNumber()}
                 </div>
             </div>
 
             {/* Bottom section: Holder Name and Expiry */}
-            <div className={styles.cardBottom}>
-                <div className={styles.cardInfo}>
-                    <span className={styles.label}>Card Holder</span>
-                    <span className={styles.holderName}>
+            <div className="credit-card__bottom">
+                <div className="credit-card__info">
+                    <span className="credit-card__label">Card Holder</span>
+                    <span className="credit-card__holder-name">
                         {holderName || 'YOUR NAME HERE'}
                     </span>
                 </div>
-                <div className={styles.expiryInfo}>
-                    <span className={styles.label}>Expires</span>
-                    <span className={styles.expiry}>
+                <div className="credit-card__expiry-info">
+                    <span className="credit-card__label">Expires</span>
+                    <span className="credit-card__expiry">
                         {formatExpiry()}
                     </span>
                 </div>

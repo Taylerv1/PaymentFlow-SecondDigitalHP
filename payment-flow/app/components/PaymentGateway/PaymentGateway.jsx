@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import styles from './PaymentGateway.module.scss';
+import './PaymentGateway.scss';
 import PaymentForm from './PaymentForm/PaymentForm';
 
 /**
@@ -10,60 +10,48 @@ import PaymentForm from './PaymentForm/PaymentForm';
  * CreditCard visualization and PaymentForm input components
  */
 const PaymentGateway = () => {
-    // ═══════════════════════════════════════════════════════════
     // State Management
-    // ═══════════════════════════════════════════════════════════
     const [cardNumber, setCardNumber] = useState('');
     const [holderName, setHolderName] = useState('');
     const [expiryMonth, setExpiryMonth] = useState('');
     const [expiryYear, setExpiryYear] = useState('');
     const [cvv, setCvv] = useState('');
 
-    // ═══════════════════════════════════════════════════════════
-    // Event Handlers
-    // ═══════════════════════════════════════════════════════════
-
     /**
      * Handle form submission
-     * @param {Object} formData - The submitted form data
      */
     const handleSubmit = useCallback((formData) => {
         console.log('Payment submitted:', formData);
-        // In a real application, this would send data to a payment processor
         alert('Payment processing... (Demo only)');
     }, []);
 
-    // ═══════════════════════════════════════════════════════════
-    // Render
-    // ═══════════════════════════════════════════════════════════
     return (
-        <div className={styles.paymentGateway}>
+        <div className="payment-gateway">
             {/* Animated Background Particles */}
-            <div className={styles.particles}>
+            <div className="payment-gateway__particles">
                 {Array.from({ length: 20 }).map((_, index) => (
-                    <div key={index} className={styles.particle} />
+                    <div key={index} className="payment-gateway__particle" />
                 ))}
             </div>
 
             {/* Decorative Gradient Orbs */}
-            <div className={`${styles.decoration} ${styles.left}`} />
-            <div className={`${styles.decoration} ${styles.right}`} />
+            <div className="payment-gateway__decoration payment-gateway__decoration--left" />
+            <div className="payment-gateway__decoration payment-gateway__decoration--right" />
 
             {/* Header Section */}
-            <header className={styles.header}>
-                <h1 className={styles.title}>
+            <header className="payment-gateway__header">
+                <h1 className="payment-gateway__title">
                     <span>Secure</span> Payment Gateway
                 </h1>
-                <p className={styles.subtitle}>
+                <p className="payment-gateway__subtitle">
                     Complete your transaction with confidence
                 </p>
             </header>
 
             {/* Main Content */}
-            <main className={styles.content}>
-
+            <main className="payment-gateway__content">
                 {/* Payment Form Section */}
-                <section className={styles.formSection}>
+                <section className="payment-gateway__form-section">
                     <PaymentForm
                         cardNumber={cardNumber}
                         onCardNumberChange={setCardNumber}

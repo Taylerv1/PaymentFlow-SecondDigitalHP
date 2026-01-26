@@ -1,4 +1,4 @@
-// Credit Card SCSS Module
+// Credit Card SCSS
 // Variables for card brand colors
 $visa-gradient: linear-gradient(135deg, #1a1f71 0%, #2d4cb4 50%, #4e8ddd 100%);
 $mastercard-gradient: linear-gradient(135deg, #f79e1b 0%, #eb001b 50%, #c41230 100%);
@@ -6,14 +6,13 @@ $amex-gradient: linear-gradient(135deg, #006fcf 0%, #328fbf 50%, #4aa0d5 100%);
 $discover-gradient: linear-gradient(135deg, #ff6600 0%, #ff8c00 50%, #ffa500 100%);
 $default-gradient: linear-gradient(135deg, #2c3e50 0%, #3d566e 50%, #4a6885 100%);
 
-
 $font-card-number: 'Courier New', Courier, monospace;
 $font-card-text: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 $text-light: #ffffff;
 $text-muted: rgba(255, 255, 255, 0.75);
 
-.creditCard {
+.credit-card {
     position: relative;
     width: 100%;
     max-width: 650px;
@@ -29,7 +28,6 @@ $text-muted: rgba(255, 255, 255, 0.75);
     justify-content: space-between;
     background: $default-gradient;
     transform-style: preserve-3d;
-
 
     // Glassmorphism overlay
     &::before {
@@ -75,27 +73,27 @@ $text-muted: rgba(255, 255, 255, 0.75);
 }
 
 // Card brand variants
-.visa {
+.credit-card--visa {
     background: $visa-gradient;
 }
 
-.mastercard {
+.credit-card--mastercard {
     background: $mastercard-gradient;
 }
 
-.amex {
+.credit-card--amex {
     background: $amex-gradient;
 }
 
-.discover {
+.credit-card--discover {
     background: $discover-gradient;
 }
 
-.default {
+.credit-card--default {
     background: $default-gradient;
 }
 
-.cardTop {
+.credit-card__top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -103,7 +101,7 @@ $text-muted: rgba(255, 255, 255, 0.75);
     z-index: 1;
 }
 
-.chip {
+.credit-card__chip {
     width: 56px;
     height: 42px;
     background: linear-gradient(135deg, #ffd700 0%, #f0c14b 50%, #c9a227 100%);
@@ -137,7 +135,7 @@ $text-muted: rgba(255, 255, 255, 0.75);
     }
 }
 
-.cardBrand {
+.credit-card__brand {
     font-size: 24px;
     font-weight: 700;
     text-transform: uppercase;
@@ -146,12 +144,12 @@ $text-muted: rgba(255, 255, 255, 0.75);
     opacity: 0.95;
 }
 
-.cardMiddle {
+.credit-card__middle {
     position: relative;
     z-index: 1;
 }
 
-.cardNumber {
+.credit-card__number {
     font-family: $font-card-number;
     font-size: 26px;
     letter-spacing: 4px;
@@ -160,7 +158,7 @@ $text-muted: rgba(255, 255, 255, 0.75);
     transition: all 0.3s ease;
 }
 
-.cardBottom {
+.credit-card__bottom {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -168,13 +166,13 @@ $text-muted: rgba(255, 255, 255, 0.75);
     z-index: 1;
 }
 
-.cardInfo {
+.credit-card__info {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.label {
+.credit-card__label {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -182,7 +180,7 @@ $text-muted: rgba(255, 255, 255, 0.75);
     font-weight: 500;
 }
 
-.holderName {
+.credit-card__holder-name {
     font-family: $font-card-text;
     font-size: 16px;
     font-weight: 600;
@@ -195,14 +193,14 @@ $text-muted: rgba(255, 255, 255, 0.75);
     transition: all 0.3s ease;
 }
 
-.expiryInfo {
+.credit-card__expiry-info {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 6px;
 }
 
-.expiry {
+.credit-card__expiry {
     font-family: $font-card-number;
     font-size: 18px;
     letter-spacing: 2px;
@@ -211,7 +209,7 @@ $text-muted: rgba(255, 255, 255, 0.75);
 }
 
 // Contactless payment icon
-.contactless {
+.credit-card__contactless {
     position: absolute;
     top: 28px;
     right: 80px;

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useCallback } from 'react';
-import styles from './TruckButton.module.scss';
+import './TruckButton.scss';
 
 /**
  * TruckButton Component
@@ -37,8 +37,8 @@ const TruckButton = ({ onClick, disabled, loading }) => {
             }
             // Reset truck visibility
             if (truckRef.current) {
-                truckRef.current.classList.remove(styles.truckMoving);
-                truckRef.current.classList.remove(styles.truckHidden);
+                truckRef.current.classList.remove('truck-button__truck--moving');
+                truckRef.current.classList.remove('truck-button__truck--hidden');
             }
             return;
         }
@@ -80,7 +80,7 @@ const TruckButton = ({ onClick, disabled, loading }) => {
             // Step 6: Start truck movement and progress (delay 1450ms)
             setTimeout(() => {
                 if (truckRef.current) {
-                    truckRef.current.classList.add(styles.truckMoving);
+                    truckRef.current.classList.add('truck-button__truck--moving');
                 }
 
                 // Animate progress bar
@@ -97,8 +97,8 @@ const TruckButton = ({ onClick, disabled, loading }) => {
                 setTimeout(() => {
                     setAnimationState('done');
                     if (truckRef.current) {
-                        // Keep truck hidden after animation - don't remove truckMoving, add truckHidden
-                        truckRef.current.classList.add(styles.truckHidden);
+                        // Keep truck hidden after animation
+                        truckRef.current.classList.add('truck-button__truck--hidden');
                     }
                     // Call the actual submit handler
                     if (onClick) {
@@ -109,11 +109,14 @@ const TruckButton = ({ onClick, disabled, loading }) => {
         }
     }, [animationState, disabled, loading, onClick]);
 
-    const buttonClasses = [
-        styles.truckButton,
-        animationState === 'animating' && styles.animation,
-        animationState === 'done' && `${styles.animation} ${styles.done}`
-    ].filter(Boolean).join(' ');
+    // Build class names
+    let buttonClasses = 'truck-button';
+    if (animationState === 'animating') {
+        buttonClasses += ' truck-button--animation';
+    }
+    if (animationState === 'done') {
+        buttonClasses += ' truck-button--animation truck-button--done';
+    }
 
     return (
         <button
@@ -123,20 +126,20 @@ const TruckButton = ({ onClick, disabled, loading }) => {
             onClick={handleClick}
             disabled={disabled || loading}
         >
-            <span className={styles.defaultText}>
+            <span className="truck-button__default-text">
                 {loading ? 'Processing...' : 'Pay Now'}
             </span>
-            <span className={styles.successText}>
+            <span className="truck-button__success-text">
                 Order Placed
                 <svg viewBox="0 0 12 10">
                     <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
                 </svg>
             </span>
-            <div ref={truckRef} className={styles.truck}>
-                <div className={styles.wheel}></div>
-                <div className={styles.back}></div>
-                <div className={styles.front}></div>
-                <div className={styles.box}></div>
+            <div ref={truckRef} className="truck-button__truck">
+                <div className="truck-button__wheel"></div>
+                <div className="truck-button__back"></div>
+                <div className="truck-button__front"></div>
+                <div className="truck-button__box"></div>
             </div>
         </button>
     );

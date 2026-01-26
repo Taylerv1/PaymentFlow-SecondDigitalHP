@@ -1,4 +1,4 @@
-// Payment Gateway Main Container SCSS Module
+// Payment Gateway Main Container SCSS
 // Variables
 $background-gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
 $secondary-gradient: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
@@ -20,7 +20,7 @@ $breakpoint-lg: 1024px;
 $breakpoint-md: 768px;
 
 // Main Gateway Container
-.paymentGateway {
+.payment-gateway {
     min-height: 100vh;
     width: 100%;
     display: flex;
@@ -77,7 +77,7 @@ $breakpoint-md: 768px;
 }
 
 // Floating particles
-.particles {
+.payment-gateway__particles {
     position: absolute;
     top: 0;
     left: 0;
@@ -87,7 +87,7 @@ $breakpoint-md: 768px;
     pointer-events: none;
 }
 
-.particle {
+.payment-gateway__particle {
     position: absolute;
     width: 4px;
     height: 4px;
@@ -129,14 +129,14 @@ $breakpoint-md: 768px;
 }
 
 // Header Section
-.header {
+.payment-gateway__header {
     text-align: center;
     margin-bottom: $spacing-2xl;
     position: relative;
     z-index: 1;
 }
 
-.title {
+.payment-gateway__title {
     font-size: 42px;
     font-weight: 800;
     color: $text-light;
@@ -152,7 +152,7 @@ $breakpoint-md: 768px;
     }
 }
 
-.subtitle {
+.payment-gateway__subtitle {
     font-size: 16px;
     color: $text-muted;
     margin: 0;
@@ -161,7 +161,7 @@ $breakpoint-md: 768px;
 }
 
 // Content Container
-.content {
+.payment-gateway__content {
     display: flex;
     align-items: stretch;
     justify-content: center;
@@ -179,14 +179,14 @@ $breakpoint-md: 768px;
 }
 
 // Card Preview Section
-.cardPreview {
+.payment-gateway__card-preview {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: $spacing-lg;
 }
 
-.previewLabel {
+.payment-gateway__preview-label {
     font-size: 14px;
     color: $text-muted;
     text-transform: uppercase;
@@ -195,14 +195,14 @@ $breakpoint-md: 768px;
 }
 
 // Form Section
-.formSection {
+.payment-gateway__form-section {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 // Decorative Elements
-.decoration {
+.payment-gateway__decoration {
     position: absolute;
     width: 300px;
     height: 300px;
@@ -211,26 +211,26 @@ $breakpoint-md: 768px;
     filter: blur(40px);
     pointer-events: none;
 
-    &.left {
+    &--left {
         left: -100px;
         top: 20%;
     }
 
-    &.right {
+    &--right {
         right: -100px;
         bottom: 20%;
     }
 }
 
 // Footer
-.footer {
+.payment-gateway__footer {
     position: relative;
     z-index: 1;
     margin-top: $spacing-2xl;
     text-align: center;
 }
 
-.footerText {
+.payment-gateway__footer-text {
     font-size: 13px;
     color: $text-muted;
 
@@ -245,14 +245,14 @@ $breakpoint-md: 768px;
     }
 }
 
-.securityBadges {
+.payment-gateway__security-badges {
     display: flex;
     justify-content: center;
     gap: $spacing-md;
     margin-top: $spacing-sm;
 }
 
-.badge {
+.payment-gateway__badge {
     display: flex;
     align-items: center;
     gap: $spacing-xs;
