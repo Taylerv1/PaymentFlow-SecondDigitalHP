@@ -1,0 +1,252 @@
+// Credit Card SCSS Module
+// Variables for card brand colors
+$visa-gradient: linear-gradient(135deg, #1a1f71 0%, #2d4cb4 50%, #4e8ddd 100%);
+$mastercard-gradient: linear-gradient(135deg, #f79e1b 0%, #eb001b 50%, #c41230 100%);
+$amex-gradient: linear-gradient(135deg, #006fcf 0%, #328fbf 50%, #4aa0d5 100%);
+$discover-gradient: linear-gradient(135deg, #ff6600 0%, #ff8c00 50%, #ffa500 100%);
+$default-gradient: linear-gradient(135deg, #2c3e50 0%, #3d566e 50%, #4a6885 100%);
+
+$card-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+$card-shadow-hover: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
+
+$font-card-number: 'Courier New', Courier, monospace;
+$font-card-text: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+$text-light: #ffffff;
+$text-muted: rgba(255, 255, 255, 0.75);
+
+.creditCard {
+    position: relative;
+    width: 420px;
+    height: 260px;
+    border-radius: 20px;
+    padding: 28px 32px;
+    color: $text-light;
+    box-shadow: $card-shadow;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: $default-gradient;
+    transform-style: preserve-3d;
+
+    &:hover {
+        transform: translateY(-8px) rotateX(5deg);
+        box-shadow: $card-shadow-hover;
+    }
+
+    // Glassmorphism overlay
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.15) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(255, 255, 255, 0) 100%);
+        pointer-events: none;
+        border-radius: inherit;
+    }
+
+    // Animated shimmer effect
+    &::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 60%);
+        animation: shimmer 3s infinite linear;
+        pointer-events: none;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-50%) rotate(360deg);
+    }
+}
+
+// Card brand variants
+.visa {
+    background: $visa-gradient;
+}
+
+.mastercard {
+    background: $mastercard-gradient;
+}
+
+.amex {
+    background: $amex-gradient;
+}
+
+.discover {
+    background: $discover-gradient;
+}
+
+.default {
+    background: $default-gradient;
+}
+
+.cardTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+}
+
+.chip {
+    width: 56px;
+    height: 42px;
+    background: linear-gradient(135deg, #ffd700 0%, #f0c14b 50%, #c9a227 100%);
+    border-radius: 8px;
+    position: relative;
+    box-shadow:
+        inset 0 2px 4px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+        0 2px 6px rgba(0, 0, 0, 0.3);
+
+    // Chip lines
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 8px;
+        right: 8px;
+        height: 1px;
+        background: rgba(0, 0, 0, 0.3);
+        box-shadow: 0 -6px 0 rgba(0, 0, 0, 0.2), 0 6px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 8px;
+        bottom: 8px;
+        left: 50%;
+        width: 1px;
+        background: rgba(0, 0, 0, 0.3);
+    }
+}
+
+.cardBrand {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    opacity: 0.95;
+}
+
+.cardMiddle {
+    position: relative;
+    z-index: 1;
+}
+
+.cardNumber {
+    font-family: $font-card-number;
+    font-size: 26px;
+    letter-spacing: 4px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    word-spacing: 8px;
+    transition: all 0.3s ease;
+}
+
+.cardBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 1;
+}
+
+.cardInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: $text-muted;
+    font-weight: 500;
+}
+
+.holderName {
+    font-family: $font-card-text;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.expiryInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.expiry {
+    font-family: $font-card-number;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+// Contactless payment icon
+.contactless {
+    position: absolute;
+    top: 28px;
+    right: 80px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.8;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        border: 2px solid $text-light;
+        border-radius: 50%;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+    }
+
+    &::before {
+        width: 14px;
+        height: 14px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    &::after {
+        width: 22px;
+        height: 22px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+}

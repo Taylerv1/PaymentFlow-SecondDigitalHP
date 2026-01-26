@@ -1,0 +1,305 @@
+// Payment Form SCSS Module
+// Color variables
+$primary-color: #6366f1;
+$primary-hover: #4f46e5;
+$primary-light: rgba(99, 102, 241, 0.1);
+$secondary-color: #1e293b;
+$background-color: #ffffff;
+$surface-color: #f8fafc;
+$border-color: #e2e8f0;
+$border-focus: #6366f1;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$text-muted: #94a3b8;
+$error-color: #ef4444;
+$success-color: #22c55e;
+
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$shadow-focus: 0 0 0 3px rgba(99, 102, 241, 0.2);
+
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+
+$transition-fast: 0.15s ease;
+$transition-normal: 0.25s ease;
+
+.paymentForm {
+    width: 100%;
+    max-width: 420px;
+    background: $background-color;
+    border-radius: $radius-lg;
+    padding: 32px;
+    box-shadow: $shadow-lg;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.formTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    &::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 28px;
+        background: linear-gradient(180deg, $primary-color, $primary-hover);
+        border-radius: 2px;
+    }
+}
+
+.formSubtitle {
+    font-size: 14px;
+    color: $text-secondary;
+    margin: 0;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.formRowThree {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+.label {
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.inputWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;
+    color: $text-primary;
+    background: $surface-color;
+    border: 2px solid $border-color;
+    border-radius: $radius-md;
+    outline: none;
+    transition: all $transition-normal;
+    box-sizing: border-box;
+    font-family: inherit;
+
+    &::placeholder {
+        color: $text-muted;
+        font-weight: 400;
+    }
+
+    &:hover {
+        border-color: darken($border-color, 10%);
+        background: $background-color;
+    }
+
+    &:focus {
+        border-color: $border-focus;
+        background: $background-color;
+        box-shadow: $shadow-focus;
+    }
+
+    &.error {
+        border-color: $error-color;
+        background: rgba($error-color, 0.05);
+    }
+
+    &.valid {
+        border-color: $success-color;
+    }
+}
+
+.inputIcon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-muted;
+    pointer-events: none;
+    transition: color $transition-fast;
+}
+
+.cardNumber {
+    letter-spacing: 2px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.select {
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+    padding-right: 44px;
+}
+
+.cvvInput {
+    letter-spacing: 4px;
+    text-align: center;
+}
+
+.submitButton {
+    width: 100%;
+    padding: 16px 24px;
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $background-color;
+    background: linear-gradient(135deg, $primary-color 0%, $primary-hover 100%);
+    border: none;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: all $transition-normal;
+    box-shadow: $shadow-sm;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent);
+        transition: left 0.5s ease;
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-md;
+
+        &::before {
+            left: 100%;
+        }
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: $shadow-sm;
+    }
+
+    &:disabled {
+        background: $text-muted;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+.securityNote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    color: $text-muted;
+    margin-top: 4px;
+
+    svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+.cardBrands {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+    opacity: 0.6;
+    transition: opacity $transition-fast;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.brandIcon {
+    width: 40px;
+    height: 26px;
+    background: $surface-color;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: $text-secondary;
+    transition: all $transition-fast;
+
+    &.active {
+        border-color: $primary-color;
+        background: $primary-light;
+        color: $primary-color;
+    }
+}
+
+// Animation for form appearance
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.formGroup {
+    animation: slideUp 0.4s ease forwards;
+
+    @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{$i * 0.05}s;
+        }
+    }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+    .paymentForm {
+        padding: 24px 20px;
+    }
+
+    .formRow,
+    .formRowThree {
+        grid-template-columns: 1fr;
+    }
+
+    .input {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+}
