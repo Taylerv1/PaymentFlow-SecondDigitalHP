@@ -1,38 +1,22 @@
-// Payment Form SCSS
-// Color variables
+// Payment Form SCSS - Simplified
 $primary-color: #6366f1;
-$primary-hover: #4f46e5;
 $primary-light: rgba(99, 102, 241, 0.1);
-$secondary-color: #1e293b;
 $background-color: #ffffff;
 $surface-color: #f8fafc;
 $border-color: #e2e8f0;
-$border-focus: #6366f1;
 $text-primary: #1e293b;
 $text-secondary: #64748b;
 $text-muted: #94a3b8;
 $error-color: #ef4444;
 $success-color: #22c55e;
 
-$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-$shadow-focus: 0 0 0 3px rgba(99, 102, 241, 0.2);
-
-$radius-sm: 8px;
-$radius-md: 12px;
-$radius-lg: 16px;
-
-$transition-fast: 0.15s ease;
-$transition-normal: 0.25s ease;
-
 .payment-form {
     width: 100%;
     max-width: 650px;
     background: $background-color;
-    border-radius: $radius-lg;
+    border-radius: 16px;
     padding: 32px;
-    box-shadow: $shadow-lg;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -43,9 +27,6 @@ $transition-normal: 0.25s ease;
     font-weight: 700;
     color: $text-primary;
     margin: 0 0 8px 0;
-    display: flex;
-    align-items: center;
-    gap: 12px;
 }
 
 .payment-form__subtitle {
@@ -58,31 +39,6 @@ $transition-normal: 0.25s ease;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    animation: slideUp 0.4s ease forwards;
-
-    &:nth-child(1) {
-        animation-delay: 0.05s;
-    }
-
-    &:nth-child(2) {
-        animation-delay: 0.1s;
-    }
-
-    &:nth-child(3) {
-        animation-delay: 0.15s;
-    }
-
-    &:nth-child(4) {
-        animation-delay: 0.2s;
-    }
-
-    &:nth-child(5) {
-        animation-delay: 0.25s;
-    }
-
-    &:nth-child(6) {
-        animation-delay: 0.3s;
-    }
 }
 
 .payment-form__row {
@@ -117,57 +73,34 @@ $transition-normal: 0.25s ease;
     color: $text-primary;
     background: $surface-color;
     border: 2px solid $border-color;
-    border-radius: $radius-md;
+    border-radius: 12px;
     outline: none;
-    transition: all $transition-normal;
+    transition: all 0.25s ease;
     box-sizing: border-box;
-    font-family: inherit;
 
     &::placeholder {
         color: $text-muted;
-        font-weight: 400;
-    }
-
-    &:hover {
-        border-color: darken($border-color, 10%);
-        background: $background-color;
     }
 
     &:focus {
-        border-color: $border-focus;
-        background: $background-color;
-        box-shadow: $shadow-focus;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
     }
 
     &.error {
         border-color: $error-color;
-        background: rgba($error-color, 0.05);
     }
-
-    &.valid {
-        border-color: $success-color;
-    }
-}
-
-.payment-form__input-icon {
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: $text-muted;
-    pointer-events: none;
-    transition: color $transition-fast;
 }
 
 .payment-form__input--card-number {
     letter-spacing: 2px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Courier New', monospace;
 }
 
 .payment-form__select {
     appearance: none;
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 18px;
@@ -180,8 +113,7 @@ $transition-normal: 0.25s ease;
 }
 
 .payment-form__card-preview {
-    margin-top: 24px;
-    margin-bottom: 24px;
+    margin: 24px 0;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -198,58 +130,6 @@ $transition-normal: 0.25s ease;
     align-self: flex-start;
 }
 
-.payment-form__submit-button {
-    width: 100%;
-    padding: 16px 24px;
-    margin-top: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    color: $background-color;
-    background: linear-gradient(135deg, $primary-color 0%, $primary-hover 100%);
-    border: none;
-    border-radius: $radius-md;
-    cursor: pointer;
-    transition: all $transition-normal;
-    box-shadow: $shadow-sm;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent);
-        transition: left 0.5s ease;
-    }
-
-    &:hover {
-        transform: translateY(-2px);
-        box-shadow: $shadow-md;
-
-        &::before {
-            left: 100%;
-        }
-    }
-
-    &:active {
-        transform: translateY(0);
-        box-shadow: $shadow-sm;
-    }
-
-    &:disabled {
-        background: $text-muted;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-    }
-}
-
 .payment-form__security-note {
     display: flex;
     align-items: center;
@@ -257,7 +137,6 @@ $transition-normal: 0.25s ease;
     gap: 8px;
     font-size: 12px;
     color: $text-muted;
-    margin-top: 4px;
 
     svg {
         width: 14px;
@@ -271,7 +150,6 @@ $transition-normal: 0.25s ease;
     gap: 12px;
     margin-top: 8px;
     opacity: 0.6;
-    transition: opacity $transition-fast;
 
     &:hover {
         opacity: 1;
@@ -290,7 +168,7 @@ $transition-normal: 0.25s ease;
     font-size: 10px;
     font-weight: 700;
     color: $text-secondary;
-    transition: all $transition-fast;
+    transition: all 0.15s ease;
 
     &.active {
         border-color: $primary-color;
@@ -299,20 +177,7 @@ $transition-normal: 0.25s ease;
     }
 }
 
-// Animation for form appearance
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-// Responsive adjustments
+// Responsive
 @media (max-width: 480px) {
     .payment-form {
         padding: 24px 20px;
@@ -321,10 +186,5 @@ $transition-normal: 0.25s ease;
     .payment-form__row,
     .payment-form__row--three {
         grid-template-columns: 1fr;
-    }
-
-    .payment-form__input {
-        padding: 12px 14px;
-        font-size: 14px;
     }
 }
