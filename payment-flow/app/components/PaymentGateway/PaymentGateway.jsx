@@ -2,7 +2,6 @@
 
 import React, { useState, useCallback } from 'react';
 import styles from './PaymentGateway.module.scss';
-import CreditCard from './CreditCard/CreditCard';
 import PaymentForm from './PaymentForm/PaymentForm';
 
 /**
