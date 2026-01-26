@@ -46,15 +46,6 @@ $transition-normal: 0.25s ease;
     display: flex;
     align-items: center;
     gap: 12px;
-
-    &::before {
-        content: '';
-        display: inline-block;
-        width: 4px;
-        height: 28px;
-        background: linear-gradient(180deg, $primary-color, $primary-hover);
-        border-radius: 2px;
-    }
 }
 
 .formSubtitle {
