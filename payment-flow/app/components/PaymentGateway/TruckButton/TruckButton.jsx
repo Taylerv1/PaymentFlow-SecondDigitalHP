@@ -16,7 +16,7 @@ const TruckButton = ({ onClick, disabled, loading }) => {
     /**
      * Handle button click - triggers the animation sequence
      */
-    const handleClick = useCallback((e) => {
+    const handleClick = useCallback(async (e) => {
         e.preventDefault();
 
         if (disabled || loading) return;
@@ -44,6 +44,12 @@ const TruckButton = ({ onClick, disabled, loading }) => {
         }
 
         if (animationState === 'idle') {
+            // Validate first!
+            if (onClick) {
+                const shouldProceed = await onClick(e);
+                if (shouldProceed === false) return; // Stop if validation failed
+            }
+
             setAnimationState('animating');
 
             const button = buttonRef.current;
@@ -100,10 +106,7 @@ const TruckButton = ({ onClick, disabled, loading }) => {
                         // Keep truck hidden after animation
                         truckRef.current.classList.add('truck-button__truck--hidden');
                     }
-                    // Call the actual submit handler
-                    if (onClick) {
-                        onClick(e);
-                    }
+                    // Removed Duplicate onClick call from here
                 }, 2400);
             }, 1450);
         }

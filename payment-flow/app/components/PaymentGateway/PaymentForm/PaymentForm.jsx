@@ -70,26 +70,40 @@ const PaymentForm = ({
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        if (e && e.preventDefault) e.preventDefault();
         setSubmitStatus('');
         const validationErrors = validate();
         setErrors(validationErrors);
-        if (Object.keys(validationErrors).length > 0) return;
+
+        // Return false if validation fails
+        if (Object.keys(validationErrors).length > 0) return false;
+
         setLoading(true);
         try {
+            // Simulate async payment
             await new Promise((res) => setTimeout(res, 1500));
             setLoading(false);
             setSubmitStatus('success');
             if (onSubmit) {
                 onSubmit({
                     cardNumber: cardNumber.replace(/\s/g, ''),
-                    holderName, expiryMonth, expiryYear, cvv,
-                    fullName, email, address, city, zip, country
+                    holderName,
+                    expiryMonth,
+                    expiryYear,
+                    cvv,
+                    fullName,
+                    email,
+                    address,
+                    city,
+                    zip,
+                    country
                 });
             }
+            return true;
         } catch {
             setLoading(false);
             setSubmitStatus('error');
+            return false;
         }
     };
 
