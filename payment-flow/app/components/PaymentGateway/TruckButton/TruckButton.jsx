@@ -99,14 +99,34 @@ const TruckButton = ({ onClick, disabled, loading }) => {
                     }
                 }, 48); // ~2.4s total
 
-                // Complete animation
+                // Complete animation and auto-reset
                 setTimeout(() => {
                     setAnimationState('done');
                     if (truckRef.current) {
                         // Keep truck hidden after animation
                         truckRef.current.classList.add('truck-button__truck--hidden');
                     }
-                    // Removed Duplicate onClick call from here
+
+                    // Auto-reset back to "Pay Now" after 1.5 seconds
+                    setTimeout(() => {
+                        setAnimationState('idle');
+                        if (buttonRef.current) {
+                            buttonRef.current.style.setProperty('--progress', '0');
+                            buttonRef.current.style.setProperty('--box-s', '0.5');
+                            buttonRef.current.style.setProperty('--box-o', '0');
+                            buttonRef.current.style.setProperty('--box-x', '-24');
+                            buttonRef.current.style.setProperty('--box-y', '-6');
+                            buttonRef.current.style.setProperty('--hx', '0');
+                            buttonRef.current.style.setProperty('--bx', '0');
+                            buttonRef.current.style.setProperty('--truck-y', '0');
+                            buttonRef.current.style.setProperty('--truck-y-n', '-26');
+                        }
+                        if (truckRef.current) {
+                            truckRef.current.classList.remove('truck-button__truck--moving');
+                            truckRef.current.classList.remove('truck-button__truck--hidden');
+                        }
+                    }, 2500); // Wait 1.5s after "Order Placed" appears
+
                 }, 2400);
             }, 1450);
         }
