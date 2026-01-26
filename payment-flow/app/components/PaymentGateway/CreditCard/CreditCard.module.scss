@@ -17,8 +17,9 @@ $text-muted: rgba(255, 255, 255, 0.75);
 
 .creditCard {
     position: relative;
-    width: 420px;
-    height: 260px;
+    width: 100%;
+    aspect-ratio: 1.586 / 1;
+    height: auto;
     border-radius: 20px;
     padding: 28px 32px;
     color: $text-light;
@@ -32,7 +33,6 @@ $text-muted: rgba(255, 255, 255, 0.75);
     transform-style: preserve-3d;
 
     &:hover {
-        transform: translateY(-8px) rotateX(5deg);
         box-shadow: $card-shadow-hover;
     }
 

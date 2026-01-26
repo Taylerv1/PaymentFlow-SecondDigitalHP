@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styles from './PaymentForm.module.scss';
+import CreditCard from '../CreditCard/CreditCard';
 
 const PaymentForm = ({
     cardNumber,
@@ -18,7 +19,7 @@ const PaymentForm = ({
 }) => {
 
 
-    
+
     // Personal info state
     const [fullName, setFullName] = React.useState('');
     const [email, setEmail] = React.useState('');
@@ -42,37 +43,25 @@ const PaymentForm = ({
         return groups ? groups.join(' ') : '';
     };
 
-    /**
-     * Handle card number input change
-     * @param {Event} e - Input change event
-     */
+ 
     const handleCardNumberChange = (e) => {
         const formatted = formatCardNumber(e.target.value);
         onCardNumberChange(formatted);
     };
 
-    /**
-     * Handle holder name input - uppercase only
-     * @param {Event} e - Input change event
-     */
+   
     const handleHolderNameChange = (e) => {
         const value = e.target.value.toUpperCase().replace(/[^A-Z\s]/g, '').slice(0, 26);
         onHolderNameChange(value);
     };
 
-    /**
-     * Handle CVV input - numbers only, max 4 digits
-     * @param {Event} e - Input change event
-     */
+
     const handleCvvChange = (e) => {
         const value = e.target.value.replace(/\D/g, '').slice(0, 4);
         onCvvChange(value);
     };
 
-    /**
-     * Handle form submission
-     * @param {Event} e - Form submit event
-     */
+
     const validate = () => {
         const newErrors = {};
         // Personal info
@@ -126,10 +115,7 @@ const PaymentForm = ({
         }
     };
 
-    /**
-     * Determine active card brand for highlighting using official IIN ranges
-     * @returns {string} Brand name or empty
-     */
+ 
     const getActiveCardBrand = () => {
         const cleanNumber = cardNumber.replace(/\s/g, '');
 
@@ -354,6 +340,17 @@ const PaymentForm = ({
                     {errors.cvv && <span style={{color: '#ef4444', fontSize: 12}}>{errors.cvv}</span>}
                 </div>
             </div>
+
+                {/* Credit Card Visual Preview */}
+                <section className={styles.cardPreview}>
+                    <span className={styles.previewLabel}>Card Preview</span>
+                    <CreditCard
+                        cardNumber={cardNumber}
+                        holderName={holderName}
+                        expiryMonth={expiryMonth}
+                        expiryYear={expiryYear}
+                    />
+                </section>
 
             {/* Submit Button */}
             <button type="submit" className={styles.submitButton} disabled={loading}>
