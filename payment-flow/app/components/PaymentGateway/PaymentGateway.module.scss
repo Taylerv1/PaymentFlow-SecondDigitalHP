@@ -165,6 +165,7 @@ $breakpoint-md: 768px;
     display: flex;
     align-items: stretch;
     justify-content: center;
+    align-items: flex-end;
     gap: $spacing-2xl;
     position: relative;
     z-index: 1;

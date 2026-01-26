@@ -62,16 +62,6 @@ const PaymentGateway = () => {
 
             {/* Main Content */}
             <main className={styles.content}>
-                {/* Credit Card Visual Preview */}
-                <section className={styles.cardPreview}>
-                    <span className={styles.previewLabel}>Card Preview</span>
-                    <CreditCard
-                        cardNumber={cardNumber}
-                        holderName={holderName}
-                        expiryMonth={expiryMonth}
-                        expiryYear={expiryYear}
-                    />
-                </section>
 
                 {/* Payment Form Section */}
                 <section className={styles.formSection}>
@@ -87,6 +77,16 @@ const PaymentGateway = () => {
                         cvv={cvv}
                         onCvvChange={setCvv}
                         onSubmit={handleSubmit}
+                    />
+                </section>
+                {/* Credit Card Visual Preview */}
+                <section className={styles.cardPreview}>
+                    <span className={styles.previewLabel}>Card Preview</span>
+                    <CreditCard
+                        cardNumber={cardNumber}
+                        holderName={holderName}
+                        expiryMonth={expiryMonth}
+                        expiryYear={expiryYear}
                     />
                 </section>
             </main>

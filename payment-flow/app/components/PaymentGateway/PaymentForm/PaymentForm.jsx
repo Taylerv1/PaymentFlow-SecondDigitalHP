@@ -3,23 +3,6 @@
 import React from 'react';
 import styles from './PaymentForm.module.scss';
 
-/**
- * PaymentForm Component
- * Form for collecting credit card payment information
- * 
- * @param {Object} props
- * @param {string} props.cardNumber - Current card number value
- * @param {Function} props.onCardNumberChange - Handler for card number changes
- * @param {string} props.holderName - Current holder name value
- * @param {Function} props.onHolderNameChange - Handler for holder name changes
- * @param {string} props.expiryMonth - Current expiry month value
- * @param {Function} props.onExpiryMonthChange - Handler for expiry month changes
- * @param {string} props.expiryYear - Current expiry year value
- * @param {Function} props.onExpiryYearChange - Handler for expiry year changes
- * @param {string} props.cvv - Current CVV value
- * @param {Function} props.onCvvChange - Handler for CVV changes
- * @param {Function} props.onSubmit - Handler for form submission
- */
 const PaymentForm = ({
     cardNumber,
     onCardNumberChange,
@@ -33,6 +16,21 @@ const PaymentForm = ({
     onCvvChange,
     onSubmit
 }) => {
+
+
+    
+    // Personal info state
+    const [fullName, setFullName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    // Address info state
+    const [address, setAddress] = React.useState('');
+    const [city, setCity] = React.useState('');
+    const [zip, setZip] = React.useState('');
+    const [country, setCountry] = React.useState('');
+    // Validation and status
+    const [errors, setErrors] = React.useState({});
+    const [loading, setLoading] = React.useState(false);
+    const [submitStatus, setSubmitStatus] = React.useState(''); // '', 'success', 'error'
     /**
      * Format card number input with spaces
      * @param {string} value - Raw input value
@@ -75,16 +73,56 @@ const PaymentForm = ({
      * Handle form submission
      * @param {Event} e - Form submit event
      */
-    const handleSubmit = (e) => {
+    const validate = () => {
+        const newErrors = {};
+        // Personal info
+        if (!fullName.trim()) newErrors.fullName = 'Full name is required.';
+        if (!email.trim()) newErrors.email = 'Email is required.';
+        else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) newErrors.email = 'Invalid email address.';
+        // Address info
+        if (!address.trim()) newErrors.address = 'Address is required.';
+        if (!city.trim()) newErrors.city = 'City is required.';
+        if (!zip.trim()) newErrors.zip = 'ZIP/Postal code is required.';
+        if (!country.trim()) newErrors.country = 'Country is required.';
+        // Payment info
+        if (!cardNumber.replace(/\s/g, '')) newErrors.cardNumber = 'Card number is required.';
+        if (!holderName.trim()) newErrors.holderName = 'Cardholder name is required.';
+        if (!expiryMonth) newErrors.expiryMonth = 'Expiry month is required.';
+        if (!expiryYear) newErrors.expiryYear = 'Expiry year is required.';
+        if (!cvv) newErrors.cvv = 'CVV is required.';
+        return newErrors;
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (onSubmit) {
-            onSubmit({
-                cardNumber: cardNumber.replace(/\s/g, ''),
-                holderName,
-                expiryMonth,
-                expiryYear,
-                cvv
-            });
+        setSubmitStatus('');
+        const validationErrors = validate();
+        setErrors(validationErrors);
+        if (Object.keys(validationErrors).length > 0) return;
+        setLoading(true);
+        try {
+            // Simulate async payment
+            await new Promise((res) => setTimeout(res, 1500));
+            setLoading(false);
+            setSubmitStatus('success');
+            if (onSubmit) {
+                onSubmit({
+                    cardNumber: cardNumber.replace(/\s/g, ''),
+                    holderName,
+                    expiryMonth,
+                    expiryYear,
+                    cvv,
+                    fullName,
+                    email,
+                    address,
+                    city,
+                    zip,
+                    country
+                });
+            }
+        } catch {
+            setLoading(false);
+            setSubmitStatus('error');
         }
     };
 
@@ -132,6 +170,90 @@ const PaymentForm = ({
                 <p className={styles.formSubtitle}>Enter your card information securely</p>
             </div>
 
+            {/* Personal Information */}
+            <div className={styles.formGroup}>
+                <label className={styles.label} htmlFor="fullName">Full Name</label>
+                <input
+                    id="fullName"
+                    type="text"
+                    className={styles.input}
+                    placeholder="Full Name"
+                    value={fullName}
+                    onChange={e => setFullName(e.target.value)}
+                    autoComplete="name"
+                />
+                {errors.fullName && <span style={{color: '#ef4444', fontSize: 12}}>{errors.fullName}</span>}
+            </div>
+            <div className={styles.formGroup}>
+                <label className={styles.label} htmlFor="email">Email</label>
+                <input
+                    id="email"
+                    type="email"
+                    className={styles.input}
+                    placeholder="you@email.com"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    autoComplete="email"
+                />
+                {errors.email && <span style={{color: '#ef4444', fontSize: 12}}>{errors.email}</span>}
+            </div>
+
+            {/* Address Information */}
+            <div className={styles.formGroup}>
+                <label className={styles.label} htmlFor="address">Address</label>
+                <input
+                    id="address"
+                    type="text"
+                    className={styles.input}
+                    placeholder="Street Address"
+                    value={address}
+                    onChange={e => setAddress(e.target.value)}
+                    autoComplete="address-line1"
+                />
+                {errors.address && <span style={{color: '#ef4444', fontSize: 12}}>{errors.address}</span>}
+            </div>
+            <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                    <label className={styles.label} htmlFor="city">City</label>
+                    <input
+                        id="city"
+                        type="text"
+                        className={styles.input}
+                        placeholder="City"
+                        value={city}
+                        onChange={e => setCity(e.target.value)}
+                        autoComplete="address-level2"
+                    />
+                    {errors.city && <span style={{color: '#ef4444', fontSize: 12}}>{errors.city}</span>}
+                </div>
+                <div className={styles.formGroup}>
+                    <label className={styles.label} htmlFor="zip">ZIP/Postal Code</label>
+                    <input
+                        id="zip"
+                        type="text"
+                        className={styles.input}
+                        placeholder="ZIP/Postal Code"
+                        value={zip}
+                        onChange={e => setZip(e.target.value)}
+                        autoComplete="postal-code"
+                    />
+                    {errors.zip && <span style={{color: '#ef4444', fontSize: 12}}>{errors.zip}</span>}
+                </div>
+            </div>
+            <div className={styles.formGroup}>
+                <label className={styles.label} htmlFor="country">Country</label>
+                <input
+                    id="country"
+                    type="text"
+                    className={styles.input}
+                    placeholder="Country"
+                    value={country}
+                    onChange={e => setCountry(e.target.value)}
+                    autoComplete="country"
+                />
+                {errors.country && <span style={{color: '#ef4444', fontSize: 12}}>{errors.country}</span>}
+            </div>
+
             {/* Card Number Field */}
             <div className={styles.formGroup}>
                 <label className={styles.label} htmlFor="cardNumber">
@@ -141,7 +263,7 @@ const PaymentForm = ({
                     <input
                         id="cardNumber"
                         type="text"
-                        className={`${styles.input} ${styles.cardNumber}`}
+                        className={`${styles.input} ${styles.cardNumber}${errors.cardNumber ? ' error' : ''}`}
                         placeholder="0000 0000 0000 0000"
                         value={cardNumber}
                         onChange={handleCardNumberChange}
@@ -150,6 +272,7 @@ const PaymentForm = ({
                         inputMode="numeric"
                     />
                 </div>
+                {errors.cardNumber && <span style={{color: '#ef4444', fontSize: 12}}>{errors.cardNumber}</span>}
             </div>
 
             {/* Card Holder Name Field */}
@@ -166,6 +289,7 @@ const PaymentForm = ({
                     onChange={handleHolderNameChange}
                     autoComplete="cc-name"
                 />
+                {errors.holderName && <span style={{color: '#ef4444', fontSize: 12}}>{errors.holderName}</span>}
             </div>
 
             {/* Expiry Date and CVV Row */}
@@ -176,7 +300,7 @@ const PaymentForm = ({
                     </label>
                     <select
                         id="expiryMonth"
-                        className={`${styles.input} ${styles.select}`}
+                        className={`${styles.input} ${styles.select}${errors.expiryMonth ? ' error' : ''}`}
                         value={expiryMonth}
                         onChange={(e) => onExpiryMonthChange(e.target.value)}
                         autoComplete="cc-exp-month"
@@ -188,6 +312,7 @@ const PaymentForm = ({
                             </option>
                         ))}
                     </select>
+                    {errors.expiryMonth && <span style={{color: '#ef4444', fontSize: 12}}>{errors.expiryMonth}</span>}
                 </div>
 
                 <div className={styles.formGroup}>
@@ -196,7 +321,7 @@ const PaymentForm = ({
                     </label>
                     <select
                         id="expiryYear"
-                        className={`${styles.input} ${styles.select}`}
+                        className={`${styles.input} ${styles.select}${errors.expiryYear ? ' error' : ''}`}
                         value={expiryYear}
                         onChange={(e) => onExpiryYearChange(e.target.value)}
                         autoComplete="cc-exp-year"
@@ -208,6 +333,7 @@ const PaymentForm = ({
                             </option>
                         ))}
                     </select>
+                    {errors.expiryYear && <span style={{color: '#ef4444', fontSize: 12}}>{errors.expiryYear}</span>}
                 </div>
 
                 <div className={styles.formGroup}>
@@ -217,7 +343,7 @@ const PaymentForm = ({
                     <input
                         id="cvv"
                         type="password"
-                        className={`${styles.input} ${styles.cvvInput}`}
+                        className={`${styles.input} ${styles.cvvInput}${errors.cvv ? ' error' : ''}`}
                         placeholder="•••"
                         value={cvv}
                         onChange={handleCvvChange}
@@ -225,13 +351,22 @@ const PaymentForm = ({
                         autoComplete="cc-csc"
                         inputMode="numeric"
                     />
+                    {errors.cvv && <span style={{color: '#ef4444', fontSize: 12}}>{errors.cvv}</span>}
                 </div>
             </div>
 
             {/* Submit Button */}
-            <button type="submit" className={styles.submitButton}>
-                Pay Now
+            <button type="submit" className={styles.submitButton} disabled={loading}>
+                {loading ? 'Processing...' : 'Pay Now'}
             </button>
+
+            {/* Submission Status */}
+            {submitStatus === 'success' && (
+                <div style={{ color: '#22c55e', textAlign: 'center', marginTop: 8 }}>Payment successful!</div>
+            )}
+            {submitStatus === 'error' && (
+                <div style={{ color: '#ef4444', textAlign: 'center', marginTop: 8 }}>Payment failed. Please try again.</div>
+            )}
 
             {/* Security Note */}
             <div className={styles.securityNote}>
