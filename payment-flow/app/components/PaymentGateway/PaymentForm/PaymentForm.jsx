@@ -99,6 +99,15 @@ const PaymentForm = ({
                     country
                 });
             }
+
+            // Reset Personal and Address Info
+            setFullName('');
+            setEmail('');
+            setAddress('');
+            setCity('');
+            setZip('');
+            setCountry('');
+
             return true;
         } catch {
             setLoading(false);

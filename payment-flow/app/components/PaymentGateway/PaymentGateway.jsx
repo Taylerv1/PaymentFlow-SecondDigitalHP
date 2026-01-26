@@ -22,7 +22,13 @@ const PaymentGateway = () => {
      */
     const handleSubmit = useCallback((formData) => {
         console.log('Payment submitted:', formData);
-        alert('Payment processing... (Demo only)');
+
+        // Reset Card Data
+        setCardNumber('');
+        setHolderName('');
+        setExpiryMonth('');
+        setExpiryYear('');
+        setCvv('');
     }, []);
 
     return (
