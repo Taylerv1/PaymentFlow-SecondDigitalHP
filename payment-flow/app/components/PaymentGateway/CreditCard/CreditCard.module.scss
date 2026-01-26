@@ -6,8 +6,6 @@ $amex-gradient: linear-gradient(135deg, #006fcf 0%, #328fbf 50%, #4aa0d5 100%);
 $discover-gradient: linear-gradient(135deg, #ff6600 0%, #ff8c00 50%, #ffa500 100%);
 $default-gradient: linear-gradient(135deg, #2c3e50 0%, #3d566e 50%, #4a6885 100%);
 
-$card-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-$card-shadow-hover: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
 
 $font-card-number: 'Courier New', Courier, monospace;
 $font-card-text: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,12 +16,12 @@ $text-muted: rgba(255, 255, 255, 0.75);
 .creditCard {
     position: relative;
     width: 100%;
+    max-width: 650px;
     aspect-ratio: 1.586 / 1;
     height: auto;
     border-radius: 20px;
     padding: 28px 32px;
     color: $text-light;
-    // box-shadow: $card-shadow;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     overflow: hidden;
     display: flex;
