@@ -1,0 +1,335 @@
+// TruckButton SCSS Module - Animated Submit Button
+// ═══════════════════════════════════════════════════════════
+
+// Color Variables
+$color-text: #fff;
+$color-background: #6366f1;
+$color-tick: #16BF78;
+$color-base: #0D0F18;
+$color-wheel: #2B3044;
+$color-wheel-inner: #646B8C;
+$color-wheel-dot: #fff;
+$color-back: #6D58FF;
+$color-back-inner: #362A89;
+$color-back-inner-shadow: #2D246B;
+$color-front: #A6ACCD;
+$color-front-shadow: #535A79;
+$color-front-light: #FFF8B1;
+$color-window: #2B3044;
+$color-window-shadow: #404660;
+$color-street: #646B8C;
+$color-street-fill: #404660;
+$color-box: #DCB97A;
+$color-box-shadow: #B89B66;
+
+.truckButton {
+    --progress: 0;
+    --box-s: 0.5;
+    --box-o: 0;
+    --truck-y: 0;
+    --truck-y-n: -26;
+    --box-x: -24;
+    --box-y: -6;
+    --hx: 0;
+    --bx: 0;
+
+    padding: 16px 0;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    border: none;
+    outline: none;
+    color: $color-text;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    border-radius: var(--br, 12px);
+    appearance: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx, 0deg)) translateZ(0);
+    transition: transform 0.5s, border-radius 0.3s linear var(--br-d, 0s);
+    perspective: 1000px;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 6px;
+        display: block;
+        background: var(--b, #{$color-street});
+        transform-origin: 0 100%;
+        transform: rotateX(90deg) scaleX(var(--sy, 1));
+    }
+
+    &::after {
+        --sy: var(--progress);
+        --b: #{$color-street-fill};
+    }
+
+    &:hover:not(.animation):not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+}
+
+.defaultText,
+.successText {
+    display: block;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    opacity: var(--o, 1);
+    transition: opacity 0.3s;
+}
+
+.successText {
+    --o: 0;
+    position: absolute;
+    top: 16px;
+    left: 0;
+    right: 0;
+
+    svg {
+        width: 12px;
+        height: 10px;
+        display: inline-block;
+        vertical-align: top;
+        fill: none;
+        margin: 7px 0 0 12px;
+        stroke: $color-tick;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 16px;
+        stroke-dashoffset: var(--offset, 16px);
+        transition: stroke-dashoffset 0.4s ease 0.45s;
+    }
+}
+
+// Truck Container
+.truck {
+    position: absolute;
+    width: 72px;
+    height: 28px;
+    left: 50%;
+    top: 0;
+    margin-left: -36px;
+    transform-style: preserve-3d;
+    transform: rotateX(90deg) translate3d(var(--truck-x, 4px), calc(var(--truck-y-n) * 1px), 12px);
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: var(--l, 18px);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        z-index: 2;
+        box-shadow: inset 0 0 0 2px $color-wheel, inset 0 0 0 4px $color-wheel-inner;
+        background: $color-wheel-dot;
+        transform: translateY(calc(var(--truck-y) * -1px)) translateZ(0);
+    }
+
+    &::after {
+        --l: 54px;
+    }
+}
+
+.wheel {
+    position: absolute;
+    bottom: -6px;
+    left: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $color-wheel;
+    transform: translateY(calc(var(--truck-y) * -1px)) translateZ(0);
+
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 35px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: $color-wheel;
+    }
+}
+
+.back {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 47px;
+    height: 28px;
+    border-radius: 1px 1px 0 0;
+    background: linear-gradient(68deg, $color-back-inner 0%, $color-back-inner 22%, $color-back-inner-shadow 22.1%, $color-back-inner-shadow 100%);
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 11px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        border-radius: 0 1px 0 0;
+        background: $color-back;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        border-radius: 1px;
+        width: 73px;
+        height: 2px;
+        left: -1px;
+        bottom: -2px;
+        background: $color-base;
+    }
+}
+
+.front {
+    position: absolute;
+    left: 47px;
+    bottom: -1px;
+    height: 22px;
+    width: 24px;
+    clip-path: polygon(55% 0, 72% 44%, 100% 58%, 100% 100%, 0 100%, 0 0);
+    background: linear-gradient(84deg, $color-front-shadow 0%, $color-front-shadow 10%, $color-front 12%, $color-front 100%);
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 7px;
+        height: 8px;
+        left: 7px;
+        top: 2px;
+        clip-path: polygon(0 0, 60% 0%, 100% 100%, 0% 100%);
+        background: linear-gradient(59deg, $color-window 0%, $color-window 57%, $color-window-shadow 55%, $color-window-shadow 100%);
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 3px;
+        height: 2px;
+        right: 0;
+        bottom: 3px;
+        background: $color-front-light;
+    }
+}
+
+.box {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    right: 56px;
+    bottom: 0;
+    z-index: 1;
+    border-radius: 1px;
+    overflow: hidden;
+    transform: translate(calc(var(--box-x) * 1px), calc(var(--box-y) * 1px)) scale(var(--box-s));
+    opacity: var(--box-o);
+    background: linear-gradient(68deg, $color-box 0%, $color-box 50%, $color-box-shadow 50.2%, $color-box-shadow 100%);
+    background-size: 250% 100%;
+    background-position-x: calc(var(--bx) * 1%);
+
+    &::before {
+        content: "";
+        position: absolute;
+        background: rgba(255, 255, 255, 0.2);
+        left: 0;
+        right: 0;
+        top: 6px;
+        height: 1px;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 6px;
+        left: 100%;
+        top: 0;
+        bottom: 0;
+        background: $color-back;
+        transform: translateX(calc(var(--hx) * 1px));
+    }
+}
+
+// Animation States
+.animation {
+    --rx: -90deg;
+    --br: 0;
+
+    .defaultText {
+        --o: 0;
+    }
+
+    &.done {
+        --rx: 0deg;
+        --br: 12px;
+        --br-d: 0.2s;
+
+        .successText {
+            --o: 1;
+            --offset: 0;
+        }
+    }
+}
+
+// Keyframe animations for truck movement
+@keyframes truckMove {
+    0% {
+        transform: rotateX(90deg) translate3d(4px, calc(var(--truck-y-n) * 1px), 12px);
+        opacity: 1;
+    }
+
+    15% {
+        transform: rotateX(90deg) translate3d(0px, calc(var(--truck-y-n) * 1px), 12px);
+        opacity: 1;
+    }
+
+    40% {
+        transform: rotateX(90deg) translate3d(80px, calc(var(--truck-y-n) * 1px), 12px);
+        opacity: 1;
+    }
+
+    55% {
+        transform: rotateX(90deg) translate3d(60px, calc(var(--truck-y-n) * 1px), 12px);
+        opacity: 1;
+    }
+
+    85% {
+        transform: rotateX(90deg) translate3d(250px, calc(var(--truck-y-n) * 1px), 12px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: rotateX(90deg) translate3d(280px, calc(var(--truck-y-n) * 1px), 12px);
+        opacity: 0;
+    }
+}
+
+.truckMoving {
+    animation: truckMove 2.4s ease-in-out forwards;
+}
+
+// Hidden state for truck after animation completes
+.truckHidden {
+    opacity: 0 !important;
+    visibility: hidden;
+}

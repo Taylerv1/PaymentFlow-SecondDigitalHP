@@ -3,6 +3,7 @@
 import React from 'react';
 import styles from './PaymentForm.module.scss';
 import CreditCard from '../CreditCard/CreditCard';
+import TruckButton from '../TruckButton/TruckButton';
 
 const PaymentForm = ({
     cardNumber,
@@ -43,13 +44,13 @@ const PaymentForm = ({
         return groups ? groups.join(' ') : '';
     };
 
- 
+
     const handleCardNumberChange = (e) => {
         const formatted = formatCardNumber(e.target.value);
         onCardNumberChange(formatted);
     };
 
-   
+
     const handleHolderNameChange = (e) => {
         const value = e.target.value.toUpperCase().replace(/[^A-Z\s]/g, '').slice(0, 26);
         onHolderNameChange(value);
@@ -115,7 +116,7 @@ const PaymentForm = ({
         }
     };
 
- 
+
     const getActiveCardBrand = () => {
         const cleanNumber = cardNumber.replace(/\s/g, '');
 
@@ -168,7 +169,7 @@ const PaymentForm = ({
                     onChange={e => setFullName(e.target.value)}
                     autoComplete="name"
                 />
-                {errors.fullName && <span style={{color: '#ef4444', fontSize: 12}}>{errors.fullName}</span>}
+                {errors.fullName && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.fullName}</span>}
             </div>
             <div className={styles.formGroup}>
                 <label className={styles.label} htmlFor="email">Email</label>
@@ -181,7 +182,7 @@ const PaymentForm = ({
                     onChange={e => setEmail(e.target.value)}
                     autoComplete="email"
                 />
-                {errors.email && <span style={{color: '#ef4444', fontSize: 12}}>{errors.email}</span>}
+                {errors.email && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.email}</span>}
             </div>
 
             {/* Address Information */}
@@ -196,7 +197,7 @@ const PaymentForm = ({
                     onChange={e => setAddress(e.target.value)}
                     autoComplete="address-line1"
                 />
-                {errors.address && <span style={{color: '#ef4444', fontSize: 12}}>{errors.address}</span>}
+                {errors.address && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.address}</span>}
             </div>
             <div className={styles.formRow}>
                 <div className={styles.formGroup}>
@@ -210,7 +211,7 @@ const PaymentForm = ({
                         onChange={e => setCity(e.target.value)}
                         autoComplete="address-level2"
                     />
-                    {errors.city && <span style={{color: '#ef4444', fontSize: 12}}>{errors.city}</span>}
+                    {errors.city && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.city}</span>}
                 </div>
                 <div className={styles.formGroup}>
                     <label className={styles.label} htmlFor="zip">ZIP/Postal Code</label>
@@ -223,7 +224,7 @@ const PaymentForm = ({
                         onChange={e => setZip(e.target.value)}
                         autoComplete="postal-code"
                     />
-                    {errors.zip && <span style={{color: '#ef4444', fontSize: 12}}>{errors.zip}</span>}
+                    {errors.zip && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.zip}</span>}
                 </div>
             </div>
             <div className={styles.formGroup}>
@@ -237,7 +238,7 @@ const PaymentForm = ({
                     onChange={e => setCountry(e.target.value)}
                     autoComplete="country"
                 />
-                {errors.country && <span style={{color: '#ef4444', fontSize: 12}}>{errors.country}</span>}
+                {errors.country && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.country}</span>}
             </div>
 
             {/* Card Number Field */}
@@ -258,7 +259,7 @@ const PaymentForm = ({
                         inputMode="numeric"
                     />
                 </div>
-                {errors.cardNumber && <span style={{color: '#ef4444', fontSize: 12}}>{errors.cardNumber}</span>}
+                {errors.cardNumber && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.cardNumber}</span>}
             </div>
 
             {/* Card Holder Name Field */}
@@ -275,7 +276,7 @@ const PaymentForm = ({
                     onChange={handleHolderNameChange}
                     autoComplete="cc-name"
                 />
-                {errors.holderName && <span style={{color: '#ef4444', fontSize: 12}}>{errors.holderName}</span>}
+                {errors.holderName && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.holderName}</span>}
             </div>
 
             {/* Expiry Date and CVV Row */}
@@ -298,7 +299,7 @@ const PaymentForm = ({
                             </option>
                         ))}
                     </select>
-                    {errors.expiryMonth && <span style={{color: '#ef4444', fontSize: 12}}>{errors.expiryMonth}</span>}
+                    {errors.expiryMonth && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.expiryMonth}</span>}
                 </div>
 
                 <div className={styles.formGroup}>
@@ -319,7 +320,7 @@ const PaymentForm = ({
                             </option>
                         ))}
                     </select>
-                    {errors.expiryYear && <span style={{color: '#ef4444', fontSize: 12}}>{errors.expiryYear}</span>}
+                    {errors.expiryYear && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.expiryYear}</span>}
                 </div>
 
                 <div className={styles.formGroup}>
@@ -337,25 +338,27 @@ const PaymentForm = ({
                         autoComplete="cc-csc"
                         inputMode="numeric"
                     />
-                    {errors.cvv && <span style={{color: '#ef4444', fontSize: 12}}>{errors.cvv}</span>}
+                    {errors.cvv && <span style={{ color: '#ef4444', fontSize: 12 }}>{errors.cvv}</span>}
                 </div>
             </div>
 
-                {/* Credit Card Visual Preview */}
-                <section className={styles.cardPreview}>
-                    <span className={styles.previewLabel}>Card Preview</span>
-                    <CreditCard
-                        cardNumber={cardNumber}
-                        holderName={holderName}
-                        expiryMonth={expiryMonth}
-                        expiryYear={expiryYear}
-                    />
-                </section>
+            {/* Credit Card Visual Preview */}
+            <section className={styles.cardPreview}>
+                <span className={styles.previewLabel}>Card Preview</span>
+                <CreditCard
+                    cardNumber={cardNumber}
+                    holderName={holderName}
+                    expiryMonth={expiryMonth}
+                    expiryYear={expiryYear}
+                />
+            </section>
 
-            {/* Submit Button */}
-            <button type="submit" className={styles.submitButton} disabled={loading}>
-                {loading ? 'Processing...' : 'Pay Now'}
-            </button>
+            {/* Animated Submit Button */}
+            <TruckButton
+                onClick={handleSubmit}
+                disabled={loading}
+                loading={loading}
+            />
 
             {/* Submission Status */}
             {submitStatus === 'success' && (
