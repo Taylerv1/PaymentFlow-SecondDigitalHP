@@ -32,9 +32,6 @@ $text-muted: rgba(255, 255, 255, 0.75);
     background: $default-gradient;
     transform-style: preserve-3d;
 
-    &:hover {
-        box-shadow: $card-shadow-hover;
-    }
 
     // Glassmorphism overlay
     &::before {
