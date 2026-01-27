@@ -3,80 +3,102 @@
 import React from 'react';
 import './CreditCard.scss';
 
-
 const CreditCard = ({
     cardNumber = '',
+    onCardNumberChange,
     holderName = '',
+    onHolderNameChange,
     expiryMonth = '',
-    expiryYear = ''
+    onExpiryMonthChange,
+    expiryYear = '',
+    onExpiryYearChange,
+    cvv = '',
+    onCvvChange,
+    errors = {}
 }) => {
 
-    const getCardBrand = () => {
-        const cleanNumber = cardNumber.replace(/\s/g, '');
-
-        if (/^4/.test(cleanNumber)) {
-            return { name: 'VISA', className: 'credit-card--visa' };
-        }
-
-        if (/^5[1-5]/.test(cleanNumber) || /^2[2-7]/.test(cleanNumber)) {
-            return { name: 'MASTERCARD', className: 'credit-card--mastercard' };
-        }
-
-        if (/^3[47]/.test(cleanNumber)) {
-            return { name: 'AMEX', className: 'credit-card--amex' };
-        }
-
-        if (/^6(?:011|5|4[4-9])/.test(cleanNumber)) {
-            return { name: 'DISCOVER', className: 'credit-card--discover' };
-        }
-
-        return { name: '', className: 'credit-card--default' };
-    };
-
-
-    const formatCardNumber = () => {
-        const cleanNumber = cardNumber.replace(/\s/g, '');
-        const paddedNumber = cleanNumber.padEnd(16, '•');
-        return paddedNumber.match(/.{1,4}/g)?.join(' ') || '•••• •••• •••• ••••';
-    };
-
-    const formatExpiry = () => {
-        const month = expiryMonth || 'MM';
-        const year = expiryYear || 'YY';
-        return `${month}/${year}`;
-    };
-
-    const cardBrand = getCardBrand();
-
     return (
-        <div className={`credit-card ${cardBrand.className}`}>
-            <div className="credit-card__contactless" aria-hidden="true" />
-
-            <div className="credit-card__top">
-                <div className="credit-card__chip" aria-hidden="true" />
-                <div className="credit-card__brand" aria-label={`Card type: ${cardBrand.name || 'Unknown'}`}>
-                    {cardBrand.name}
-                </div>
+        <div className="credit-card-form">
+            <h3 className="credit-card-form__title">Credit Card Information</h3>
+            
+            <div className="credit-card-form__group">
+                <label className="credit-card-form__label">Card Number</label>
+                <input
+                    type="text"
+                    placeholder="1234 5678 9012 3456"
+                    value={cardNumber}
+                    onChange={onCardNumberChange}
+                    maxLength="19"
+                    className={`credit-card-form__input ${errors.cardNumber ? 'credit-card-form__input--error' : ''}`}
+                />
+                {errors.cardNumber && <span className="credit-card-form__error">{errors.cardNumber}</span>}
             </div>
 
-            <div className="credit-card__middle">
-                <div className="credit-card__number" aria-label="Card number">
-                    {formatCardNumber()}
-                </div>
+            <div className="credit-card-form__group">
+                <label className="credit-card-form__label">Cardholder Name</label>
+                <input
+                    type="text"
+                    placeholder="John Doe"
+                    value={holderName}
+                    onChange={onHolderNameChange}
+                    maxLength="26"
+                    className={`credit-card-form__input ${errors.holderName ? 'credit-card-form__input--error' : ''}`}
+                />
+                {errors.holderName && <span className="credit-card-form__error">{errors.holderName}</span>}
             </div>
 
-            <div className="credit-card__bottom">
-                <div className="credit-card__info">
-                    <span className="credit-card__label">Card Holder</span>
-                    <span className="credit-card__holder-name">
-                        {holderName || 'YOUR NAME HERE'}
-                    </span>
+            <div className="credit-card-form__row">
+                <div className="credit-card-form__group">
+                    <label className="credit-card-form__label">Expiry Month</label>
+                    <select
+                        value={expiryMonth}
+                        onChange={onExpiryMonthChange}
+                        className={`credit-card-form__input ${errors.expiryMonth ? 'credit-card-form__input--error' : ''}`}
+                    >
+                        <option value="">Select Month</option>
+                        {Array.from({ length: 12 }, (_, i) => {
+                            const month = String(i + 1).padStart(2, '0');
+                            return (
+                                <option key={month} value={month}>
+                                    {month}
+                                </option>
+                            );
+                        })}
+                    </select>
+                    {errors.expiryMonth && <span className="credit-card-form__error">{errors.expiryMonth}</span>}
                 </div>
-                <div className="credit-card__expiry-info">
-                    <span className="credit-card__label">Expires</span>
-                    <span className="credit-card__expiry">
-                        {formatExpiry()}
-                    </span>
+
+                <div className="credit-card-form__group">
+                    <label className="credit-card-form__label">Expiry Year</label>
+                    <select
+                        value={expiryYear}
+                        onChange={onExpiryYearChange}
+                        className={`credit-card-form__input ${errors.expiryYear ? 'credit-card-form__input--error' : ''}`}
+                    >
+                        <option value="">Select Year</option>
+                        {Array.from({ length: 20 }, (_, i) => {
+                            const year = new Date().getFullYear() + i;
+                            return (
+                                <option key={year} value={year}>
+                                    {year}
+                                </option>
+                            );
+                        })}
+                    </select>
+                    {errors.expiryYear && <span className="credit-card-form__error">{errors.expiryYear}</span>}
+                </div>
+
+                <div className="credit-card-form__group">
+                    <label className="credit-card-form__label">CVV</label>
+                    <input
+                        type="text"
+                        placeholder="123"
+                        value={cvv}
+                        onChange={onCvvChange}
+                        maxLength="4"
+                        className={`credit-card-form__input ${errors.cvv ? 'credit-card-form__input--error' : ''}`}
+                    />
+                    {errors.cvv && <span className="credit-card-form__error">{errors.cvv}</span>}
                 </div>
             </div>
         </div>
