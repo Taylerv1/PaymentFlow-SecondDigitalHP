@@ -3,19 +3,14 @@
 import React from 'react';
 import './CreditCard.scss';
 
-/**
- * CreditCard Component
- * Visual representation of a credit card that updates based on user input
- */
+
 const CreditCard = ({
     cardNumber = '',
     holderName = '',
     expiryMonth = '',
     expiryYear = ''
 }) => {
-    /**
-     * Determine card brand based on card number prefix
-     */
+
     const getCardBrand = () => {
         const cleanNumber = cardNumber.replace(/\s/g, '');
 
@@ -38,18 +33,13 @@ const CreditCard = ({
         return { name: '', className: 'credit-card--default' };
     };
 
-    /**
-     * Format card number with spaces for readability
-     */
+
     const formatCardNumber = () => {
         const cleanNumber = cardNumber.replace(/\s/g, '');
         const paddedNumber = cleanNumber.padEnd(16, '•');
         return paddedNumber.match(/.{1,4}/g)?.join(' ') || '•••• •••• •••• ••••';
     };
 
-    /**
-     * Format expiry date display
-     */
     const formatExpiry = () => {
         const month = expiryMonth || 'MM';
         const year = expiryYear || 'YY';
@@ -60,10 +50,8 @@ const CreditCard = ({
 
     return (
         <div className={`credit-card ${cardBrand.className}`}>
-            {/* Contactless payment indicator */}
             <div className="credit-card__contactless" aria-hidden="true" />
 
-            {/* Top section: Chip and Brand */}
             <div className="credit-card__top">
                 <div className="credit-card__chip" aria-hidden="true" />
                 <div className="credit-card__brand" aria-label={`Card type: ${cardBrand.name || 'Unknown'}`}>
@@ -71,14 +59,12 @@ const CreditCard = ({
                 </div>
             </div>
 
-            {/* Middle section: Card Number */}
             <div className="credit-card__middle">
                 <div className="credit-card__number" aria-label="Card number">
                     {formatCardNumber()}
                 </div>
             </div>
 
-            {/* Bottom section: Holder Name and Expiry */}
             <div className="credit-card__bottom">
                 <div className="credit-card__info">
                     <span className="credit-card__label">Card Holder</span>

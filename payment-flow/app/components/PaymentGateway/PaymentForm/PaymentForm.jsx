@@ -18,15 +18,13 @@ const PaymentForm = ({
     onCvvChange,
     onSubmit
 }) => {
-    // Personal info state
+
     const [fullName, setFullName] = React.useState('');
     const [email, setEmail] = React.useState('');
-    // Address info state
     const [address, setAddress] = React.useState('');
     const [city, setCity] = React.useState('');
     const [zip, setZip] = React.useState('');
     const [country, setCountry] = React.useState('');
-    // Validation and status
     const [errors, setErrors] = React.useState({});
     const [loading, setLoading] = React.useState(false);
     const [submitStatus, setSubmitStatus] = React.useState('');
@@ -75,12 +73,10 @@ const PaymentForm = ({
         const validationErrors = validate();
         setErrors(validationErrors);
 
-        // Return false if validation fails
         if (Object.keys(validationErrors).length > 0) return false;
 
         setLoading(true);
         try {
-            // Simulate async payment
             await new Promise((res) => setTimeout(res, 1500));
             setLoading(false);
             setSubmitStatus('success');
@@ -100,7 +96,6 @@ const PaymentForm = ({
                 });
             }
 
-            // Reset Personal and Address Info
             setFullName('');
             setEmail('');
             setAddress('');

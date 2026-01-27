@@ -33,18 +33,16 @@ const PaymentGateway = () => {
 
     return (
         <div className="payment-gateway">
-            {/* Animated Background Particles */}
             <div className="payment-gateway__particles">
                 {Array.from({ length: 20 }).map((_, index) => (
                     <div key={index} className="payment-gateway__particle" />
                 ))}
             </div>
 
-            {/* Decorative Gradient Orbs */}
+
             <div className="payment-gateway__decoration payment-gateway__decoration--left" />
             <div className="payment-gateway__decoration payment-gateway__decoration--right" />
 
-            {/* Header Section */}
             <header className="payment-gateway__header">
                 <h1 className="payment-gateway__title">
                     <span>Secure</span> Payment Gateway
@@ -54,9 +52,7 @@ const PaymentGateway = () => {
                 </p>
             </header>
 
-            {/* Main Content */}
             <main className="payment-gateway__content">
-                {/* Payment Form Section */}
                 <section className="payment-gateway__form-section">
                     <PaymentForm
                         cardNumber={cardNumber}
