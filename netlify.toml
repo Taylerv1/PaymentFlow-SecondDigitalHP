@@ -1,3 +1,4 @@
 [build]
+  base = "payment-flow"
   command = "npm run build"
   publish = "out"
